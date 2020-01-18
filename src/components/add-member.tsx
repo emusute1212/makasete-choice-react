@@ -5,44 +5,32 @@ interface Props {
     onAddButtonClick: (member: string) => void
 }
 
-interface State {
-    memberName: string | null
-}
+const AddMember: React.SFC<Props> = ({onAddButtonClick}) => {
+    let memberName: string = "";
 
-class AddMember extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-
-        this.state = {
-            memberName: ""
-        }
-    }
-
-    public render() {
-        return <div>
-            <TextField value={this.state.memberName} onChange={this.handleInputText}/>
+    return (
+        <div>
+            <TextField value={memberName} onChange={handleInputText}/>
             <Button
                 variant="contained"
                 color="primary"
-                onClick={this.handleOnAddButtonClick}
+                onClick={handleOnAddButtonClick}
             >
                 メンバー追加
             </Button>
         </div>
-    }
+    );
 
-    private handleOnAddButtonClick = () => {
-        if (this.state.memberName == null) {
+    function handleOnAddButtonClick() {
+        if (memberName == null) {
             return
         }
-        this.props.onAddButtonClick(this.state.memberName);
-    };
+        onAddButtonClick(memberName);
+    }
 
-    private handleInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            memberName: event.target.value
-        })
-    };
-}
+    function handleInputText(event: React.ChangeEvent<HTMLInputElement>) {
+        memberName = event.target.value
+    }
+};
 
 export default AddMember

@@ -6,24 +6,24 @@ interface Props {
     onDeleteButtonClick: (member: Member) => void
 }
 
-interface State {
-}
-
-class DeleteButton extends React.Component<Props, State> {
-    public render() {
-        return (
-            <div>
-                <Button variant="contained" color="primary"
-                        onClick={this.handleOnDeleteButtonClick}>
-                    X
-                </Button>
-            </div>
-        );
+const DeleteButton: React.SFC<Props> = (
+    {
+        member,
+        onDeleteButtonClick
     }
+) => {
+    return (
+        <div>
+            <Button variant="contained" color="primary"
+                    onClick={handleOnDeleteButtonClick}>
+                X
+            </Button>
+        </div>
+    );
 
-    private handleOnDeleteButtonClick = () => {
-        this.props.onDeleteButtonClick(this.props.member);
-    };
-}
+    function handleOnDeleteButtonClick() {
+        onDeleteButtonClick(member);
+    }
+};
 
 export default DeleteButton
