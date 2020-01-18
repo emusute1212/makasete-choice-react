@@ -1,6 +1,6 @@
 import {ADD_MEMBER, CHOICE_MEMBER, DELETE_MEMBER, MakaseteChoiceActionTypes, Member} from "./types";
 
-export function sendMember(newMember: Member): MakaseteChoiceActionTypes {
+export function addMember(newMember: Member): MakaseteChoiceActionTypes {
     return {
         type: ADD_MEMBER,
         payload: newMember
