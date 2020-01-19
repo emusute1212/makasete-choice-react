@@ -5,32 +5,44 @@ interface Props {
     onAddButtonClick: (member: string) => void
 }
 
-const AddMember: React.FunctionComponent<Props> = ({onAddButtonClick}) => {
-    let memberName: string = "";
+interface State {
+    memberName: string | null
+}
 
-    return (
-        <div>
-            <TextField onChange={handleInputText}/>
+class AddMember extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            memberName: ""
+        }
+    }
+
+    public render() {
+        return <div>
+            <TextField value={this.state.memberName} onChange={this.handleInputText}/>
             <Button
                 variant="contained"
                 color="primary"
-                onClick={handleOnAddButtonClick}
+                onClick={this.handleOnAddButtonClick}
             >
                 メンバー追加
             </Button>
         </div>
-    );
+    }
 
-    function handleOnAddButtonClick() {
-        if (memberName == null) {
+    private handleOnAddButtonClick = () => {
+        if (this.state.memberName == null) {
             return
         }
-        onAddButtonClick(memberName);
-    }
+        this.props.onAddButtonClick(this.state.memberName);
+    };
 
-    function handleInputText(event: React.ChangeEvent<HTMLInputElement>) {
-        memberName = event.target.value;
-    }
-};
+    private handleInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            memberName: event.target.value
+        })
+    };
+}
 
 export default AddMember
