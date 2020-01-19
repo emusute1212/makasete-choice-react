@@ -1,8 +1,16 @@
 import * as React from "react";
-import * as ReactDOM from 'react-dom';
-import MakaseteChoice from './makasete-choice'
+import {render} from "react-dom";
+import {Provider} from "react-redux";
 
-ReactDOM.render(
-    <MakaseteChoice/>,
-    document.getElementById('root')
+import App from "./App";
+import configureStore from "./store";
+
+const store = configureStore();
+
+const Root = () => (
+    <Provider store={store}>
+        <App />
+    </Provider>
 );
+
+render(<Root />, document.getElementById("root"));

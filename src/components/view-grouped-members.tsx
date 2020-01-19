@@ -6,25 +6,25 @@ interface Props {
     groupedMembers: GroupedMembers[]
 }
 
-interface State {
-}
-
-
-class ViewGroupedMembers extends React.Component<Props, State> {
-    public render() {
-        return <div>
-            {this.renderList()}
-        </div>
+const ViewGroupedMembers: React.SFC<Props> = (
+    {
+        groupedMembers
     }
+) => {
+    return (
+        <div>
+            {renderList()}
+        </div>
+    );
 
-    private renderList() {
-        return this.props.groupedMembers.map((member) =>
+    function renderList() {
+        return groupedMembers.map((member) =>
             <ListItem key={member.groupName} component="nav" divider={true}>
                 <ListItemText
                     primary={member.groupName + ": " + member.members.map((it) => it.name).join(", ")}/>
             </ListItem>
         );
     }
-}
+};
 
 export default ViewGroupedMembers
