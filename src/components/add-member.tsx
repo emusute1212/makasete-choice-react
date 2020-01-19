@@ -10,7 +10,7 @@ const AddMember: React.SFC<Props> = ({onAddButtonClick}) => {
 
     return (
         <div>
-            <TextField value={memberName} onChange={handleInputText}/>
+            <TextField onChange={handleInputText}/>
             <Button
                 variant="contained"
                 color="primary"
@@ -29,7 +29,7 @@ const AddMember: React.SFC<Props> = ({onAddButtonClick}) => {
     }
 
     function handleInputText(event: React.ChangeEvent<HTMLInputElement>) {
-        memberName = event.target.value
+        memberName = event.target.value;
     }
 };
 
