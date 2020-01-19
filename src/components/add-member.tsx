@@ -5,7 +5,7 @@ interface Props {
     onAddButtonClick: (member: string) => void
 }
 
-const AddMember: React.SFC<Props> = ({onAddButtonClick}) => {
+const AddMember: React.FunctionComponent<Props> = ({onAddButtonClick}) => {
     let memberName: string = "";
 
     return (

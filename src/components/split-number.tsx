@@ -9,7 +9,7 @@ interface Props {
     onChangeSelectValue: (event: React.ChangeEvent<{ value: unknown }>) => void
 }
 
-const SplitNumber: React.SFC<Props> = (
+const SplitNumber: React.FunctionComponent<Props> = (
     {
         maxValue,
         currentValue,

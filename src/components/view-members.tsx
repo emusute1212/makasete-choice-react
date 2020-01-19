@@ -7,7 +7,7 @@ interface Props {
     onDeleteButtonClick: (member: Member) => void
 }
 
-const ViewMembers: React.SFC<Props> = (
+const ViewMembers: React.FunctionComponent<Props> = (
     {
         members,
         onDeleteButtonClick
