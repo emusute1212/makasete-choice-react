@@ -12,6 +12,6 @@
 gitからクローンしたプロジェクト内で、以下のコマンドを実行すれば実行できる
 
 ```
-npm install
-npm start
+yarn install
+yarn run start
 ```
