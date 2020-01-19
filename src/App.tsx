@@ -1,31 +1,36 @@
 import {Button} from "@material-ui/core";
 import * as React from "react";
+import {connect} from "react-redux";
 import AddMember from "./components/add-member";
 import SplitNumber from "./components/split-number";
 import ViewGroupedMembers from "./components/view-grouped-members";
 import ViewMembers from "./components/view-members";
-import MemberUsecase from "./usecase/member-usecase";
-import './utils/array-util';
 
-interface Props {
+import {AppState} from "./store";
+import {addMember, choiceMember, deleteMember} from "./store/makasetechoice/actions";
+
+import {MakaseteChoiceState} from "./store/makasetechoice/types";
+
+interface AppProps {
+    addMember: typeof addMember,
+    deleteMember: typeof deleteMember,
+    choiceMember: typeof choiceMember,
+    makaseteChoice: MakaseteChoiceState;
 }
 
 interface State {
-    members: Member[]
     splitNum: number
-    groupedMembers: GroupedMembers[]
 }
 
-class MakaseteChoice extends React.Component<Props, State> {
-    constructor(props: Props) {
+class App extends React.Component<AppProps, State> {
+    constructor(props: AppProps) {
         super(props);
 
         this.state = {
-            members: Array(),
-            splitNum: 1,
-            groupedMembers: Array()
+            splitNum: props.makaseteChoice.members.length
         }
     }
+
 
     public render() {
         return (
@@ -35,10 +40,10 @@ class MakaseteChoice extends React.Component<Props, State> {
                 </div>
                 <div>
                     <ViewMembers
-                        members={this.state.members}
+                        members={this.props.makaseteChoice.members}
                         onDeleteButtonClick={this.handleOnDeleteButtonClick}/>
                 </div>
-                <SplitNumber maxValue={this.state.members.length}
+                <SplitNumber maxValue={this.props.makaseteChoice.members.length}
                              currentValue={this.state.splitNum}
                              onChangeSelectValue={this.handleSplitNumChange}/>
                 <div>
@@ -49,27 +54,17 @@ class MakaseteChoice extends React.Component<Props, State> {
                         チョイス⭐️する
                     </Button>
                 </div>
-                <ViewGroupedMembers groupedMembers={this.state.groupedMembers}/>
+                <ViewGroupedMembers groupedMembers={this.props.makaseteChoice.gropedMember}/>
             </div>
         );
     }
 
-    private handleOnAddButtonClick = (member: string) => {
-        const members = this.state.members.slice();
-        members.push({
-            number: members.length + 1, name: member
-        });
-        this.setState({
-            members
-        })
+    private handleOnAddButtonClick = (inputValue: string) => {
+        this.props.addMember(inputValue)
     };
 
     private handleOnDeleteButtonClick = (member: Member) => {
-        const members = this.state.members.slice();
-        members.removeBy(member);
-        this.setState({
-            members
-        })
+        this.props.deleteMember(member)
     };
 
     private handleSplitNumChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -79,10 +74,15 @@ class MakaseteChoice extends React.Component<Props, State> {
     };
 
     private handleOnClickChoiceButton = () => {
-        this.setState({
-            groupedMembers: MemberUsecase.choice(this.state.members, this.state.splitNum)
-        });
+        this.props.choiceMember(this.state.splitNum)
     };
 }
 
-export default MakaseteChoice
+const mapStateToProps = (state: AppState) => ({
+    makaseteChoice: state.makaseteChoice
+});
+
+export default connect(
+    mapStateToProps,
+    {addMember, deleteMember, choiceMember}
+)(App);

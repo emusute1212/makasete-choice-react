@@ -9,27 +9,29 @@ interface Props {
     onChangeSelectValue: (event: React.ChangeEvent<{ value: unknown }>) => void
 }
 
-interface State {
-}
-
-
-class SplitNumber extends React.Component<Props, State> {
-    public render() {
-        return <div>
+const SplitNumber: React.SFC<Props> = (
+    {
+        maxValue,
+        currentValue,
+        onChangeSelectValue
+    }
+) => {
+    return (
+        <div>
             <Select
-                value={this.props.currentValue}
-                onChange={this.props.onChangeSelectValue}
+                value={currentValue}
+                onChange={onChangeSelectValue}
             >
-                {this.renderSelector()}
+                {renderSelector()}
             </Select>
         </div>
-    }
+    );
 
-    private renderSelector() {
-        return range(1, this.props.maxValue).map((num) =>
+    function renderSelector() {
+        return range(1, maxValue).map((num) =>
             <MenuItem key={num} value={num}>{num}</MenuItem>
         );
     }
-}
+};
 
 export default SplitNumber

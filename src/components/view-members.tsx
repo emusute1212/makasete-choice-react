@@ -7,25 +7,25 @@ interface Props {
     onDeleteButtonClick: (member: Member) => void
 }
 
-interface State {
-}
-
-
-class ViewMembers extends React.Component<Props, State> {
-    public render() {
-        return <div>
-            {this.renderList()}
-        </div>
+const ViewMembers: React.SFC<Props> = (
+    {
+        members,
+        onDeleteButtonClick
     }
+) => {
+    return (<div>
+            {renderList()}
+        </div>
+    );
 
-    private renderList() {
-        return this.props.members.map((member) =>
+    function renderList() {
+        return members.map((member) =>
             <ListItem key={member.number} component="nav" divider={true}>
                 <ListItemText primary={member.name}/>
-                <DeleteButton member={member} onDeleteButtonClick={this.props.onDeleteButtonClick}/>
+                <DeleteButton member={member} onDeleteButtonClick={onDeleteButtonClick}/>
             </ListItem>
         );
     }
-}
+};
 
 export default ViewMembers
