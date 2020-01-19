@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import {combineReducers, createStore} from "redux";
 import {makaseteChoiceReducer} from "./makasetechoice/reducers";
 
 const rootReducer = combineReducers({
@@ -6,3 +6,9 @@ const rootReducer = combineReducers({
 });
 
 export type AppState = ReturnType<typeof rootReducer>
+
+export default function configureStore() {
+    return createStore(
+        rootReducer
+    );
+}
