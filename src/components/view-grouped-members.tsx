@@ -6,7 +6,7 @@ interface Props {
     groupedMembers: GroupedMembers[]
 }
 
-const ViewGroupedMembers: React.SFC<Props> = (
+const ViewGroupedMembers: React.FunctionComponent<Props> = (
     {
         groupedMembers
     }
