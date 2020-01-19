@@ -20,13 +20,13 @@ export const CHOICE_MEMBER = 'CHOICE_MEMBER';
 
 interface AddMemberAction {
     type: typeof ADD_MEMBER
-    payload: Member
+    payload: string
 }
 
 interface DeleteMemberAction {
     type: typeof DELETE_MEMBER
     meta: {
-        number: number
+        target: Member
     }
 }
 

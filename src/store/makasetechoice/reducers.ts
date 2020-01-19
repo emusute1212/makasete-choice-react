@@ -18,15 +18,18 @@ export function makaseteChoiceReducer(
 ): MakaseteChoiceState {
     switch (action.type) {
         case ADD_MEMBER:
+            const member = {
+                number: state.members.length + 1, name: action.payload
+            };
             return {
-                members: [...state.members, action.payload],
+                members: [...state.members, member],
                 gropedMember: state.gropedMember
             };
         case DELETE_MEMBER:
+            const oldMembers = state.members.slice();
+            oldMembers.removeBy(action.meta.target);
             return {
-                members: state.members.filter(
-                    member => member.number !== action.meta.number
-                ),
+                members: oldMembers,
                 gropedMember: state.gropedMember
             };
         case CHOICE_MEMBER:
